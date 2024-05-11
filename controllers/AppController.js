@@ -12,7 +12,7 @@ class AppController {
   }
 
   static getStats(req, res) {
-    res.send({
+    res.status(200).send({
       users: dbClient.nbUsers(),
       files: dbClient.nbFiles(),
     });
