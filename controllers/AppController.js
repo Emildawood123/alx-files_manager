@@ -2,10 +2,10 @@ import redisClient from '../utils/redis';
 import dbClient from '../utils/db';
 
 class AppController {
-  static getStatus(req, res) {
+  static async getStatus(req, res) {
     res.status(200).send({
       redis: redisClient.isAlive(),
-      db: dbClient.isAlive(),
+      db: await dbClient.isAlive(),
     });
   }
 
