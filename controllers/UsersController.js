@@ -15,12 +15,13 @@ class UsersController {
     if (isExist.length !== 0) {
       return res.status(400).send({ error: 'Already exist' });
     }
+    const hashed = crypto
+      .createHash('sha1')
+      .update(password)
+      .digest('hex');
     const user = await dataBase.insertOne({
       email,
-      password: crypto
-        .createHash('sha1')
-        .update(password)
-        .digest('hex'),
+      password: hashed,
     });
     return res.status(201).send({ id: user.insertId, email });
   }
