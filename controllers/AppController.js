@@ -11,10 +11,10 @@ class AppController {
     }
   }
 
-  static getStats(req, res) {
+  static async getStats(req, res) {
     res.status(200).send({
-      users: dbClient.nbUsers(),
-      files: dbClient.nbFiles(),
+      users: await dbClient.nbUsers(),
+      files: await dbClient.nbFiles(),
     });
   }
 }
