@@ -18,7 +18,7 @@ class UsersController {
       email,
       password: sha1(password),
     });
-    return res.status(201).send({ id: user, email });
+    return res.status(201).send({ id: user.id, email });
   }
 }
 export default UsersController;
