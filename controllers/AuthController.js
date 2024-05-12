@@ -9,7 +9,7 @@ class AuthController {
     const [email, password] = Buffer.from(authHeader, 'base64').toString('ascii').split(':');
     const users = await dbClient.client.db().collection('users');
     const user = await users.find({ email, password: sha1(password) }).toArray();
-    if (user.length < 1) {
+    if (!user) {
       return res.status(401).send({ error: 'Unauthorized' });
     }
     const token = uuidv4();
