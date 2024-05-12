@@ -7,7 +7,7 @@ class AuthController {
   static async getConnect(req, res) {
     const authHeader = req.header('Authorization').split(' ')[1];
     const [email, password] = Buffer.from(authHeader, 'base64').toString('ascii').split(':');
-    const users = await dbClient.client.db().collection('users');
+    const users = dbClient.client.db().collection('users');
     const user = await users.find({ email, password: sha1(password) }).toArray();
     if (!user) {
       return res.status(401).send({ error: 'Unauthorized' });
@@ -24,7 +24,7 @@ class AuthController {
     if (!userid) {
       return res.status(401).send({ error: 'Unauthorized' });
     }
-    await redisClient.del(token);
+    redisClient.del(token);
     return res.status(204).send();
   }
 }
